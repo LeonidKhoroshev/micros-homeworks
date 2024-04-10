@@ -122,4 +122,6 @@ git pull https://github.com/LeonidKhoroshev/micros-homeworks
 cd 11-microservices-02-principles
 ```
 
+Поскольку по условиям предпочтительно использовать ngnix (как я понял у него один из самых низких порогов входа), ознакомимся с [документацией](https://www.nginx.com/blog/deploying-nginx-plus-as-an-api-gateway-part-1/)
+
 ---
