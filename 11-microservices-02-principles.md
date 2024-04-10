@@ -96,9 +96,6 @@
 2. Запрос направляется в сервис minio GET /images/{image}.
 
 
-
-
-
 ### Ожидаемый результат
 
 Результатом выполнения задачи должен быть docker compose файл, запустив который можно локально выполнить следующие команды с успешным результатом.
@@ -115,6 +112,14 @@ curl -X GET http://localhost/images/4e6df220-295e-4231-82bc-45e4b1484430.jpg
 
 ---
 
-#### [Дополнительные материалы: как запускать, как тестировать, как проверить](https://github.com/netology-code/devkub-homeworks/tree/main/11-microservices-02-principles)
+Выполнение данного задания необходимо начать с сохранения себе на ВМ  [Дополнительных материалов](https://github.com/netology-code/devkub-homeworks/tree/main/11-microservices-02-principles)
+
+```
+mkdir micros
+cd micros
+git init
+git pull https://github.com/LeonidKhoroshev/micros-homeworks
+cd 11-microservices-02-principles
+```
 
 ---
