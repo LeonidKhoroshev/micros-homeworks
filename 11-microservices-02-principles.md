@@ -112,7 +112,7 @@ curl -X GET http://localhost/images/4e6df220-295e-4231-82bc-45e4b1484430.jpg
 
 ---
 
-Выполнение данного задания необходимо начать с сохранения себе на ВМ  [Дополнительных материалов](https://github.com/netology-code/devkub-homeworks/tree/main/11-microservices-02-principles)
+Выполнение данного задания необходимо начать с сохранения себе на ВМ  [дополнительных материалов](https://github.com/netology-code/devkub-homeworks/tree/main/11-microservices-02-principles)
 
 ```
 mkdir micros
