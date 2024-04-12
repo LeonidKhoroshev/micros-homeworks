@@ -77,23 +77,23 @@
 
 **POST /v1/register**
 1. Анонимный доступ.
-2. Запрос направляется в сервис security POST /v1/user.
+2. Запрос направляется в сервис security `POST /v1/user`.
 
 **POST /v1/token**
 1. Анонимный доступ.
-2. Запрос направляется в сервис security POST /v1/token.
+2. Запрос направляется в сервис security `POST /v1/token`.
 
 **GET /v1/user**
-1. Проверка токена. Токен ожидается в заголовке Authorization. Токен проверяется через вызов сервиса security GET /v1/token/validation/.
-2. Запрос направляется в сервис security GET /v1/user.
+1. Проверка токена. Токен ожидается в заголовке Authorization. Токен проверяется через вызов сервиса security `GET /v1/token/validation/`.
+2. Запрос направляется в сервис security `GET /v1/user`.
 
 **POST /v1/upload**
-1. Проверка токена. Токен ожидается в заголовке Authorization. Токен проверяется через вызов сервиса security GET /v1/token/validation/.
-2. Запрос направляется в сервис uploader POST /v1/upload.
+1. Проверка токена. Токен ожидается в заголовке Authorization. Токен проверяется через вызов сервиса security `GET /v1/token/validation/`.
+2. Запрос направляется в сервис uploader `POST /v1/upload`.
 
 **GET /v1/user/{image}**
-1. Проверка токена. Токен ожидается в заголовке Authorization. Токен проверяется через вызов сервиса security GET /v1/token/validation/.
-2. Запрос направляется в сервис minio GET /images/{image}.
+1. Проверка токена. Токен ожидается в заголовке Authorization. Токен проверяется через вызов сервиса security `GET /v1/token/validation/`.
+2. Запрос направляется в сервис minio `GET /images/{image}`.
 
 
 ### Ожидаемый результат
