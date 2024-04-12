@@ -112,7 +112,7 @@ curl -X GET http://localhost/images/4e6df220-295e-4231-82bc-45e4b1484430.jpg
 
 ---
 
-Выполнение данного задания необходимо начать с сохранения себе на ВМ  [дополнительных материалов](https://github.com/netology-code/devkub-homeworks/tree/main/11-microservices-02-principles)
+1. Выполнение данного задания необходимо начать с сохранения себе на ВМ  [дополнительных материалов](https://github.com/netology-code/devkub-homeworks/tree/main/11-microservices-02-principles)
 
 ```
 mkdir micros
@@ -122,6 +122,45 @@ git pull https://github.com/LeonidKhoroshev/micros-homeworks
 cd 11-microservices-02-principles
 ```
 
-Поскольку по условиям предпочтительно использовать ngnix (как я понял у него один из самых низких порогов входа), ознакомимся с [документацией](https://www.nginx.com/blog/deploying-nginx-plus-as-an-api-gateway-part-1/)
+2. Поскольку по условиям предпочтительно использовать ngnix (как я понял у него один из самых низких порогов входа), ознакомимся с [документацией](https://www.nginx.com/blog/deploying-nginx-plus-as-an-api-gateway-part-1/)
+
+3. Руководствуясь документацией из предыдущего пункта и рядом других [материалов](https://nginx.org/ru/) создаем файл [nginx.conf[]()](https://github.com/LeonidKhoroshev/micros-homeworks/blob/main/11-microservices-02-principles/gateway/nginx.conf)
+
+4. Пробуем запустить наши сервисы
+```
+docker-compose up
+```
+
+Сервис `Security` завершился с ошибкой
+```
+security-1       | Traceback (most recent call last):
+security-1       |   File "/app/./server.py", line 2, in <module>
+security-1       |     from flask import Flask, request, make_response, jsonify
+security-1       |   File "/usr/local/lib/python3.9/site-packages/flask/__init__.py", line 14, in <module>
+security-1       |     from jinja2 import escape
+security-1       | ImportError: cannot import name 'escape' from 'jinja2' (/usr/local/lib/python3.9/site-packages/jinja2/__init__.py)
+```
+
+Для успешного запуска необходимо откорректировать [Dockerfile](https://github.com/LeonidKhoroshev/micros-homeworks/blob/main/11-microservices-02-principles/security/Dockerfile)
+```
+FROM python:3.10-alpine
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+COPY src ./
+
+CMD [ "python", "./server.py" ]
+```
+
+и [requirements.txt](https://github.com/LeonidKhoroshev/micros-homeworks/blob/main/11-microservices-02-principles/security/requirements.txt),
+```
+Flask==3.0.2
+passlib==1.7.4
+PyJWT==2.0.1
+prometheus-flask-exporter==0.23.0
+```
+
+указав более свежие версии пакетов, чем представленные в задании.
 
 ---
