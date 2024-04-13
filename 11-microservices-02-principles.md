@@ -166,7 +166,20 @@ passlib==1.7.4
 PyJWT==2.0.1
 prometheus-flask-exporter==0.23.0
 ```
-
 указав более свежие версии пакетов, чем представленные в задании.
+
+Сервис `gateway` также завершился с ошибкой
+```
+nginx: [emerg] unexpected "{" in /etc/nginx/nginx.conf:50
+```
+
+Корректируем указанный блок в docker-compose.yaml
+```
+        location ~ /v1/user/(.*) {
+            set $image $1;
+            proxy_pass http://minio/images/$image;
+            proxy_pass_request_headers on;
+            proxy_set_header Authorization $http_authorization;
+```
 
 ---
