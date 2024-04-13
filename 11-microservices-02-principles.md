@@ -190,4 +190,44 @@ docker ps -a
 
 ![Alt_text](https://github.com/LeonidKhoroshev/micros-homeworks/blob/main/11-microservices-02-principles/screenshots/micros1.png)
 
+
+5. Получаем токен
+```
+curl -X POST -H 'Content-Type: application/json' -d '{"login":"bob", "password":"qwe123"}' http://localhost/v1/token
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJib2IifQ.hiMVLmssoTsy1MqbmIoviDeFPvo-nCd92d4UFiN2O2I[root@microservices 11-microservices-02-principles]#
+```
+6. Загружаем картинку
+```
+curl -X POST \
+  -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJib2IifQ.hiMVLmssoTsy1MqbmIoviDeFPvo-nCd92d4UFiN2O2I' \
+  -H 'Content-Type: application/octet-stream' \
+  --data-binary @1.jpg \
+  http://localhost/v1/upload
+```
+
+Снова ошибка:
+```
+ <html>
+<head><title>413 Request Entity Too Large</title></head>
+<body>
+<center><h1>413 Request Entity Too Large</h1></center>
+<hr><center>nginx/1.25.4</center>
+</body>
+</html>
+```
+
+Как оказалось, в настройках `Nginx` по умолчанию максимальный размер файла - 1 Мб, это надо обязательно учитывать.
+
+Повторно загружаем маленькую картинку:
+
+![Alt_text](https://github.com/LeonidKhoroshev/micros-homeworks/blob/main/11-microservices-02-principles/screenshots/micros2.png)
+
+7. Проверяем, что все наша картинка существует
+```
+curl localhost/user/1.jpg > 1.gpg
+```
+
+![Alt_text](https://github.com/LeonidKhoroshev/micros-homeworks/blob/main/11-microservices-02-principles/screenshots/micros3.png)
+
+
 ---
