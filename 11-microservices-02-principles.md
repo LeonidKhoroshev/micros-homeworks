@@ -182,4 +182,12 @@ nginx: [emerg] unexpected "{" in /etc/nginx/nginx.conf:50
             proxy_set_header Authorization $http_authorization;
 ```
 
+Запускаем повторно
+```
+docker compose up
+docker ps -a
+```
+
+![Alt_text](https://github.com/LeonidKhoroshev/micros-homeworks/blob/main/11-microservices-02-principles/screenshots/micros1.png)
+
 ---
