@@ -230,4 +230,10 @@ curl localhost/user/1.jpg > 1.gpg
 ![Alt_text](https://github.com/LeonidKhoroshev/micros-homeworks/blob/main/11-microservices-02-principles/screenshots/micros3.png)
 
 
+В качестве результата выпорлнения задания 3 направляю ссылки на откорректированные конфигурации файлов:
+
+[docker-compose.yaml](https://github.com/LeonidKhoroshev/micros-homeworks/blob/main/11-microservices-02-principles/docker-compose.yaml)
+
+[nginx.conf](https://github.com/LeonidKhoroshev/micros-homeworks/blob/main/11-microservices-02-principles/gateway/nginx.conf)
+
 ---
