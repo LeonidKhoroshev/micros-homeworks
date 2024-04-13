@@ -130,7 +130,7 @@ cd 11-microservices-02-principles
 
 2. Поскольку по условиям предпочтительно использовать ngnix (как я понял у него один из самых низких порогов входа), ознакомимся с [документацией](https://www.nginx.com/blog/deploying-nginx-plus-as-an-api-gateway-part-1/)
 
-3. Руководствуясь документацией из предыдущего пункта и рядом других [материалов](https://nginx.org/ru/) создаем файл [nginx.conf[]()](https://github.com/LeonidKhoroshev/micros-homeworks/blob/main/11-microservices-02-principles/gateway/nginx.conf)
+3. Руководствуясь документацией из предыдущего пункта и рядом других [материалов](https://nginx.org/ru/) создаем файл [nginx.conf](https://github.com/LeonidKhoroshev/micros-homeworks/blob/main/11-microservices-02-principles/gateway/nginx.conf)
 
 4. Пробуем запустить наши сервисы
 ```
