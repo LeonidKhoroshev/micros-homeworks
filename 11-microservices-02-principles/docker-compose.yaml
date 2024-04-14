@@ -1,7 +1,10 @@
+version: '3.8'
+
 volumes:
   data:
   prometheus-data:
   grafana_data:
+  elasticsearch_data:
 
 services:
   storage:
@@ -56,6 +59,36 @@ services:
       - 3000
     environment:
       PORT: 3000
+
+  vector:
+    image: timberio/vector:nightly-distroless-static
+    depends_on:
+      - storage
+      - uploader
+      - security
+    volumes:
+      - ./vector/config/vector.yml:/etc/vector/vector.yml
+    command: ["-c", "/etc/vector/vector.yml"]
+
+  elasticsearch:
+    image: elasticsearch:8.7.0
+    ports:
+      - "9200:9200"
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false # Отключаем безопасность
+      - xpack.security.transport.ssl.enabled=false # Отключаем SSL для транспорта
+
+  kibana:
+    image: kibana:8.7.0
+    ports:
+      - "8081:5601"
+    environment:
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
 
   gateway:
     image: nginx:alpine
