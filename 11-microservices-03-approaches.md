@@ -126,6 +126,49 @@ location /kibana {
 }
 ```
 
+Пробуем запустить контейнеры
+```
+docker compose up
+```
+
+Получаем ошибку:
+
+![Alt_text](https://github.com/LeonidKhoroshev/micros-homeworks/blob/main/11-microservices-02-principles/screenshots/micros4.png)
+
+Возвращаемся к домашней работе по соответствующей [теме[]()](https://github.com/LeonidKhoroshev/mnt-homeworks/blob/MNT-video/10-monitoring-04-elk/README.md) и корректируем наш `docker-compose` файл, заменив в конфигурации заблокированные образы на рабочие:
+```
+elasticsearch:
+    image: elasticsearch:8.7.0
+
+  kibana:
+    image: kibana:8.7.0
+```
+
+Повторяем эксперимент
+```
+sysctl -w vm.max_map_count=262144
+docker compose up
+```
+
+В этот раз ошибка со стартом Vector, так как для него необходимо создать отдельный конфигурационный файл `vector/config/yml`
+```
+sources:
+  default:
+    type: stdin
+
+sinks:
+  es:
+    type: elasticsearch
+    endpoint: "http://elasticsearch:9200"
+    inputs:
+      - default
+```
+
+Пробуем еще раз
+```
+docker compose up
+docker ps -a
+```
 
 
 ### Результат выполнения: 
@@ -150,10 +193,6 @@ docker compose файл, запустив который можно перейт
 docker compose файл, запустив который можно перейти по адресу http://localhost:8081, по которому доступна Grafana с настроенным Dashboard.
 Логин в Grafana должен быть admin, пароль qwerty123456.
 
----
-
-### Как оформить ДЗ?
-
-Выполненное домашнее задание пришлите ссылкой на .md-файл в вашем репозитории.
+![Alt_text](https://github.com/LeonidKhoroshev/micros-homeworks/blob/main/11-microservices-02-principles/screenshots/micros5.png)
 
 ---
