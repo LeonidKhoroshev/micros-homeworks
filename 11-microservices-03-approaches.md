@@ -1,4 +1,4 @@
-# Домашнее задание к занятию «Микросервисы: подходы»
+# Домашнее задание к занятию «Микросервисы: подходы» - Леонид Хорошев
 
 Вы работаете в крупной компании, которая строит систему на основе микросервисной архитектуры.
 Вам как DevOps-специалисту необходимо выдвинуть предложение по организации инфраструктуры для разработки и эксплуатации.
@@ -62,6 +62,71 @@
 Продолжить работу по задаче API Gateway: сервисы, используемые в задаче, пишут логи в stdout. 
 
 Добавить в систему сервисы для сбора логов Vector + ElasticSearch + Kibana со всех сервисов, обеспечивающих работу API.
+
+Для решения данной задачи, добавим в наш `docker-compose.yaml` в блок `services` контейнеры `Vector`, `ElasticSearch` и `Kibana`.
+```
+  vector:
+    image: timberio/vector:latest
+    depends_on:
+      - storage
+      - uploader
+      - security
+    volumes:
+      - ./vector/config:/etc/vector
+    command: ["-c", "/etc/vector/vector.toml"]
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.0
+    ports:
+      - "9200:9200"
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.10.0
+    ports:
+      - "8081:5601"
+    environment:
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+```
+
+В конфигурационный файл нашего Api Gateway также внесем изменения:
+- добавим блок upstream vector для проксирования запросов к сервису Vector, который будет собирать и передавать логи:
+```
+upstream vector {
+    server vector:24224;
+}
+```
+- добавим блок location для проксирования запросов к сервису Vector:
+```
+location /logs {
+    proxy_pass http://vector;
+}
+```
+- аналогично пропишем в нашем конфигурационном файле блоки upstream `Elasticsearch` (для проксирования запросов к сервису ElasticSearch) и `Kibana` (для проксирования запросов к сервису Kibana):
+```
+upstream elasticsearch {
+    server elasticsearch:9200;
+}
+
+upstream kibana {
+    server kibana:5601;
+}
+```
+- также добавим блок location для наших новых сервисов
+```
+location /elasticsearch {
+    proxy_pass http://elasticsearch;
+}
+
+location /kibana {
+    proxy_pass http://kibana;
+}
+```
+
+
 
 ### Результат выполнения: 
 
