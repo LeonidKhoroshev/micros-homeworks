@@ -135,7 +135,7 @@ docker compose up
 
 ![Alt_text](https://github.com/LeonidKhoroshev/micros-homeworks/blob/main/11-microservices-02-principles/screenshots/micros4.png)
 
-Возвращаемся к домашней работе по соответствующей [теме[]()](https://github.com/LeonidKhoroshev/mnt-homeworks/blob/MNT-video/10-monitoring-04-elk/README.md) и корректируем наш `docker-compose` файл, заменив в конфигурации заблокированные образы на рабочие:
+Возвращаемся к домашней работе по соответствующей [теме](https://github.com/LeonidKhoroshev/mnt-homeworks/blob/MNT-video/10-monitoring-04-elk/README.md) и корректируем наш `docker-compose` файл, заменив в конфигурации заблокированные образы на рабочие:
 ```
 elasticsearch:
     image: elasticsearch:8.7.0
