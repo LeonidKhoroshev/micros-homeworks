@@ -174,10 +174,12 @@ docker ps -a
 
 ### Результат выполнения: 
 
-docker compose файл, запустив который можно перейти по адресу http://localhost:8081, по которому доступна Kibana.
+[docker compose файл](https://github.com/LeonidKhoroshev/micros-homeworks/blob/main/11-microservices-02-principles/docker-compose.yaml), запустив который можно перейти по адресу http://localhost:8081, по которому доступна Kibana.
 Логин в Kibana должен быть admin, пароль qwerty123456.
 
 ![Alt_text](https://github.com/LeonidKhoroshev/micros-homeworks/blob/main/11-microservices-02-principles/screenshots/micros6.png)
+
+
 
 ## Задача 5: Мониторинг * (необязательная)
 
