@@ -316,7 +316,7 @@ docker-compose exec grafana grafana-cli admin reset-admin-password qwerty123456
 
 ### Результат выполнения: 
 
-docker compose файл, запустив который можно перейти по адресу http://localhost:8081, по которому доступна Grafana с настроенным Dashboard.
+[docker compose](https://github.com/LeonidKhoroshev/micros-homeworks/tree/main/11-microservices-02-principles) файл, запустив который можно перейти по адресу http://localhost:8081, по которому доступна Grafana с настроенным Dashboard.
 Логин в Grafana должен быть admin, пароль qwerty123456.
 
 
