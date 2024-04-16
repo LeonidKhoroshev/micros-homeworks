@@ -309,6 +309,10 @@ docker-compose exec grafana grafana-cli admin reset-admin-password qwerty123456
 
 ![Alt_text](https://github.com/LeonidKhoroshev/micros-homeworks/blob/main/11-microservices-02-principles/screenshots/micros8.png)
 
+Далее в веб-интерфейсе Grafana добавляем источник данных (собственно наш Prometheus)
+
+![Alt_text](https://github.com/LeonidKhoroshev/micros-homeworks/blob/main/11-microservices-02-principles/screenshots/micros9.png)
+
 
 
 
