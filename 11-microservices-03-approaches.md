@@ -314,6 +314,10 @@ docker-compose exec grafana grafana-cli admin reset-admin-password qwerty123456
 ![Alt_text](https://github.com/LeonidKhoroshev/micros-homeworks/blob/main/11-microservices-02-principles/screenshots/micros9.png)
 
 
+Дальше началось самое сложное, как только не экспериментировал с Grafana, настроить более-менее внятный дашборд не удалось, так как до конца не понял какие метрики и как надо отслеживать
+
+![Alt_text](https://github.com/LeonidKhoroshev/micros-homeworks/blob/main/11-microservices-02-principles/screenshots/micros10.png)
+
 ### Результат выполнения: 
 
 [docker compose](https://github.com/LeonidKhoroshev/micros-homeworks/tree/main/11-microservices-02-principles) файл, запустив который можно перейти по адресу http://localhost:8081, по которому доступна Grafana с настроенным Dashboard.
