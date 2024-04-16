@@ -236,6 +236,53 @@ docker ps -a
 Добавить в систему сервисы для сбора метрик (Prometheus и Grafana) со всех сервисов, обеспечивающих работу API.
 Построить в Graphana dashboard, показывающий распределение запросов по сервисам.
 
+Добавим в наш `docker-compose.yaml` образы Prometheus и Grafana
+```
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - prometheus-data:/etc/prometheus
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD="qwerty123456"
+```
+
+Создадим конфигурационный файл для Prometheus
+```
+mkdir prometheus
+nano prometheus/prometheus.yml
+
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'storage'
+    static_configs:
+      - targets: ['storage:9000']
+
+  - job_name: 'uploader'
+    static_configs:
+      - targets: ['uploader:3000']
+
+  - job_name: 'gateway'
+    static_configs:
+      - targets: ['gateway:80']
+```
+
+
 ### Результат выполнения: 
 
 docker compose файл, запустив который можно перейти по адресу http://localhost:8081, по которому доступна Grafana с настроенным Dashboard.
