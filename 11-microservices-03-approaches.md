@@ -282,6 +282,23 @@ scrape_configs:
       - targets: ['gateway:80']
 ```
 
+Запускаем и проверяем статус контейнеров 
+```
+docker compose up
+docker ps -a
+```
+
+![Alt_text](https://github.com/LeonidKhoroshev/micros-homeworks/blob/main/11-microservices-02-principles/screenshots/micros7.png)
+
+Все работает, однако вход в веб-интерфейс Grafana стал возможен только после замены пароля в контейнере вручную
+```
+docker-compose exec grafana grafana-cli admin reset-admin-password qwerty123456
+```
+
+![Alt_text](https://github.com/LeonidKhoroshev/micros-homeworks/blob/main/11-microservices-02-principles/screenshots/micros8.png)
+
+
+
 
 ### Результат выполнения: 
 
