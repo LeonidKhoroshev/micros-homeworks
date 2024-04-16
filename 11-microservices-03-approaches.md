@@ -265,21 +265,33 @@ docker ps -a
 mkdir prometheus
 nano prometheus/prometheus.yml
 
-global:
-  scrape_interval: 15s
-
 scrape_configs:
-  - job_name: 'storage'
+  - job_name: 'security'
     static_configs:
-      - targets: ['storage:9000']
+      - targets: ['security:3000/metrics']
 
   - job_name: 'uploader'
     static_configs:
-      - targets: ['uploader:3000']
+      - targets: ['uploader:3000/metrics']
 
-  - job_name: 'gateway'
+  - job_name: 'minio'
     static_configs:
-      - targets: ['gateway:80']
+      - targets: ['storage:9000/minio/v2/metrics/cluster']
+```
+
+В конфигурационный файл нашего API Gateway `nginx.conf` добавляем следующие блоки:
+```
+location /metrics/security {
+    proxy_pass http://security/metrics;
+}
+
+location /metrics/uploader {
+    proxy_pass http://uploader/metrics;
+}
+
+location /metrics/minio {
+    proxy_pass http://minio/minio/v2/metrics/cluster;
+}
 ```
 
 Запускаем и проверяем статус контейнеров 
