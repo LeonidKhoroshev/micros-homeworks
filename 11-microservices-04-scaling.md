@@ -43,6 +43,46 @@ Kubernetes использует следующие переменные сред
 
 ![11-04-01](https://user-images.githubusercontent.com/1122523/114282923-9b16f900-9a4f-11eb-80aa-61ed09725760.png)
 
+Реализуем проекта создания Redis Cluster на базе облачного провайдера Yandex cloud.
+
+Готовим нашу инфраструктуру:
+
+Создаем рабочую директорию и копируем персональные переменные для доступа к облаку и настройки провайдера
+
+```
+mkdir redis_cluster
+mkdir redis_cluster/terraform
+cp terraform/04/src/personal.auto.tfvars  redis_cluster/terraform/personal.auto.tfvars
+cp terraform/04/src/providers.tf  redis_cluster/terraform/providers.tf
+```
+
+Настройки провайдера providers.tf:
+```
+terraform {
+  required_providers {
+    yandex = {
+      source = "yandex-cloud/yandex"
+    }
+  }
+  required_version = ">= 0.13"
+}
+
+provider "yandex" {
+  token     = var.token
+  cloud_id  = var.cloud_id
+  folder_id = var.folder_id
+  zone      = var.default_zone
+}
+```
+
+Инициализируем рабочую директорию
+```
+terraform init
+```
+![Alt_text](https://github.com/LeonidKhoroshev/micros-homeworks/blob/main/11-microservices-02-principles/screenshots/micros11.png)
+
+
+
 ---
 
 ### Как оформить ДЗ?
