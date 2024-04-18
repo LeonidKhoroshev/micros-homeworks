@@ -156,6 +156,42 @@ variable "disk_size" {
   default     = "20"
 ```
 
+Так как по условию задания должно быть 3 шарда, создаем 3 ВМ под каждый шард, для чего в main.tf добавляем следующий блок
+```
+dynamic "host" {
+    for_each = { for idx, shard_name in var.shard_names : shard_name => idx }
+    content {
+      zone         = var.zones[(host.value + length(var.zones)) % length(var.zones)]
+      subnet_id    = var.subnet_ids[(host.value + length(var.subnet_ids)) % length(var.subnet_ids)]
+      shard_name   = host.key
+    }
+```
+
+Под данный блок объявляем переменные
+
+```
+###host_vars
+
+variable "shard_names" {
+  description = "names of shards"
+  type        = list(string)
+  default     = ["shard1", "shard2", "shard3"]
+}
+
+variable "zones" {
+  type        = list(string)
+  default     = ["ru-central1-a", "ru-central1-b", "ru-central1-d"]
+}
+
+variable "subnet_ids" {
+  type        = list(string)
+  default     = ["e9b1bo21rhd37h7ajmmp", "e2lv0ngttnjk9a8htaeo", "fl8rv6gi0ngimnptkjfu"]
+}
+```
+
+
+
+
 
 ---
 
