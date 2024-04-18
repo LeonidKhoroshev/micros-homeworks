@@ -81,6 +81,80 @@ terraform init
 ```
 ![Alt_text](https://github.com/LeonidKhoroshev/micros-homeworks/blob/main/11-microservices-02-principles/screenshots/micros11.png)
 
+В файле main.tf прописываем основные настройки кластера:
+```
+resource "yandex_mdb_redis_cluster" "netology" {
+  name                = var.cluster_name
+  environment         = var.environement
+  network_id          = var.network_id
+  security_group_ids  = [ "enp47qss2ianln64rt5f" ]
+  sharded             = var.shard
+  tls_enabled         = var.tls
+  deletion_protection = var.protection
+
+  config {
+    password = var.password
+    version  = var.redis_version
+  }
+
+  resources {
+    resource_preset_id = var.resource_preset_id
+    disk_type_id       = var.disk_type_id
+    disk_size          = var.disk_size
+  }
+```
+
+Значения переменных прописываем в variables.tf:
+```
+###cluster vars
+
+variable "cluster_name" {
+  type        = string
+  default     = "netology"
+}
+variable "environement" {
+  type        = string
+  default     = "PRESTABLE"
+  description = "PRODUCTION or PRESTABLE"
+}
+variable "network_id" {
+  type        = string
+  default     = "enpv78njcbpmnjc8fgr1"
+}
+variable "shard" {
+  type        = bool
+  default     = "true"
+}
+variable "tls" {
+  type        = bool
+  default     = "true"
+}
+variable "protection" {
+  type        = bool
+  default     = "false"
+}
+variable "password" {
+  type        = string
+  sensitive   = true
+  default     = "....."
+}
+variable "redis_version" {
+  type        = string
+  default     = "7.0"
+  description = "available for yandex_cloud now only 7.0 and 6.4"
+}
+variable "resource_preset_id" {
+  type        = string
+  default     = "b3-c1-m4"
+}
+variable "disk_type_id" {
+  type        = string
+  default     = "network-ssd"
+}
+variable "disk_size" {
+  type        = number
+  default     = "20"
+```
 
 
 ---
