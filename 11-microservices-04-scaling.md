@@ -43,7 +43,7 @@ Kubernetes использует следующие переменные сред
 
 ![11-04-01](https://user-images.githubusercontent.com/1122523/114282923-9b16f900-9a4f-11eb-80aa-61ed09725760.png)
 
-Реализуем проекта создания Redis Cluster на базе облачного провайдера Yandex cloud.
+Реализуем проект создания Redis Cluster на базе облачного провайдера Yandex cloud.
 
 Готовим нашу инфраструктуру:
 
