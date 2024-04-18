@@ -223,6 +223,5 @@ terraform apply
 ![Alt_text](https://github.com/LeonidKhoroshev/micros-homeworks/blob/main/11-microservices-02-principles/screenshots/micros12.png)
 ![Alt_text](https://github.com/LeonidKhoroshev/micros-homeworks/blob/main/11-microservices-02-principles/screenshots/micros13.png)
 
-
-
+В качестве ответа прилагаю репозиторий [redis_cluster](https://github.com/LeonidKhoroshev/redis_cluster/tree/master)
 
