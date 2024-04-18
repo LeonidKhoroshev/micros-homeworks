@@ -212,7 +212,7 @@ variable "subnet_ids" {
 Проверим создаваемые ресурсы
 ```
 terraform plan
-``
+```
 ![Alt_text](https://github.com/LeonidKhoroshev/micros-homeworks/blob/main/11-microservices-02-principles/screenshots/micros15.png)
 ![Alt_text](https://github.com/LeonidKhoroshev/micros-homeworks/blob/main/11-microservices-02-principles/screenshots/micros16.png)
 
