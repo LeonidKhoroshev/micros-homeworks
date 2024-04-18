@@ -189,14 +189,40 @@ variable "subnet_ids" {
 }
 ```
 
+Далее попытался настроить репликацию следующим блоком кода в main.tf:
+```
+  resource "yandex_mdb_redis_replica" "netology" {
+    count = length(yandex_mdb_redis_cluster.netology.host) # Количество реплик равно количеству хостов в кластере
+
+    cluster_id     = yandex_mdb_redis_cluster.netology.id
+    zone           = var.zones[(count.index + 1) % length(var.zones)] # Реплика в следующей зоне
+    subnet_id      = var.subnet_ids[(count.index + 1) % length(var.subnet_ids)] # Реплика в следующей подсети
+    shard_name     = "${yandex_mdb_redis_cluster.netology.host[count.index].shard_name}-replica"
+    source_cluster = yandex_mdb_redis_cluster.netology.host[count.index].id
+  }
+```
+Однако, получил следующую ошибку
+
+
+![Alt_text](https://github.com/LeonidKhoroshev/micros-homeworks/blob/main/11-microservices-02-principles/screenshots/micros14.png)
+
+Нашел следующее объяснение:
+В Yandex Cloud Terraform Provider нет ресурса yandex_mdb_redis_replica. Репликация кластеров Redis в Yandex.Cloud производится автоматически, когда вы создаете кластер Redis. Поэтому,вам не нужно создавать ресурс yandex_mdb_redis_replica в явном виде. Вместо этого, у вас уже есть ресурс yandex_mdb_redis_cluster, который представляет собой кластер Redis. Репликация внутри этого кластера будет автоматически управляться платформой.
+
+Проверим создаваемые ресурсы
+```
+terraform plan
+``
+![Alt_text](https://github.com/LeonidKhoroshev/micros-homeworks/blob/main/11-microservices-02-principles/screenshots/micros15.png)
+![Alt_text](https://github.com/LeonidKhoroshev/micros-homeworks/blob/main/11-microservices-02-principles/screenshots/micros16.png)
+
+Создаем кластер
+```
+terraform apply
+```
+![Alt_text](https://github.com/LeonidKhoroshev/micros-homeworks/blob/main/11-microservices-02-principles/screenshots/micros12.png)
+![Alt_text](https://github.com/LeonidKhoroshev/micros-homeworks/blob/main/11-microservices-02-principles/screenshots/micros13.png)
 
 
 
 
----
-
-### Как оформить ДЗ?
-
-Выполненное домашнее задание пришлите ссылкой на .md-файл в вашем репозитории.
-
----
